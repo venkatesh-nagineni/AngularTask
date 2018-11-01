@@ -1,20 +1,51 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
+<div class="container">
+<!-- Displaying nearest houses to destination -->
+  <h3 style="padding:20px">Nearest house from Eberswalder Straße55.</h3>
+  <div class="row" *ngFor="let house of sortListByDistance; let i=index;" class="animated bounceInLeft">
+    <div class="[ col-xs-12 col-sm-offset-2 col-sm-8 col-md-12 ]" *ngIf="i != 0">
+      <ul class="event-list">
+        <li>
+          <img alt="House logo" src="http://www.clker.com/cliparts/8/9/9/d/11949855741697952186small_house_01.svg" />
+          <div class="info">
+            <h2 class="title">{{house.street}}</h2>
+            <p class="desc">{{house.distance}} Kms</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
 
+  <!-- displaying list of houses contain more than 5 rooms -->
+  <h3 style="padding:20px">House with more than 5 rooms</h3>
+  <div class="row" *ngFor="let house of sortListByNoOfRooms; let i=index;" class="animated bounceInLeft">
+    <div class="[ col-xs-12 col-sm-offset-2 col-sm-8 col-md-12 ]">
+      <ul class="event-list">
+        <li>
+          <img alt="House logo" src="http://www.clker.com/cliparts/8/9/9/d/11949855741697952186small_house_01.svg" />
+          <div class="info">
+            <h2 class="title">{{house.street}}</h2>
+            <p class="desc">{{house.params.rooms}} Rooms</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- finally the how i am moving into -->
+  <h3 style="padding:20px"> The house i am moving into</h3>
+  <div class="row" *ngIf="movingHouse">
+    <div class="[ col-xs-12 col-sm-offset-2 col-sm-8 col-md-12 ]">
+      <ul class="event-list">
+        <li>
+          <img alt="House logo" src="http://www.clker.com/cliparts/8/9/9/d/11949855741697952186small_house_01.svg" />
+          <div class="info">
+            <h2 class="title">{{movingHouse.street}}</h2>
+            <p class="desc">{{movingHouse.distance}} Kms</p>
+            <p class="desc">{{movingHouse.params.rooms}} Rooms</p>
+            <p class="desc">{{movingHouse.params.value}} €</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
