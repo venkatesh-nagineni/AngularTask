@@ -1,5 +1,5 @@
 <div class="container">
-<!-- Displaying nearest houses to destination -->
+  <!-- Displaying nearest houses to destination -->
   <h3 style="padding:20px">Nearest house from Eberswalder Straße55.</h3>
   <div class="row" *ngFor="let house of sortListByDistance; let i=index;" class="animated bounceInLeft">
     <div class="[ col-xs-12 col-sm-offset-2 col-sm-8 col-md-12 ]" *ngIf="i != 0">
@@ -25,6 +25,22 @@
           <div class="info">
             <h2 class="title">{{house.street}}</h2>
             <p class="desc">{{house.params.rooms}} Rooms</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- displaying missing data that are optional params, rooms, value -->
+  <h3 style="padding:20px"> Missing data from list of houses</h3>
+  <div class="row" *ngFor="let house of missingData; let i=index;" class="animated bounceInLeft">
+    <div class="[ col-xs-12 col-sm-offset-2 col-sm-8 col-md-12 ]">
+      <ul class="event-list">
+        <li>
+          <img alt="House logo" src="http://www.clker.com/cliparts/8/9/9/d/11949855741697952186small_house_01.svg" />
+          <div class="info">
+            <h2 class="title">{{house.street}}</h2>
+            <p class="desc">{{house.distance}} Kms</p>
           </div>
         </li>
       </ul>

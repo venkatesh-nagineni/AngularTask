@@ -14,6 +14,7 @@ export class AppComponent implements OnInit {
   sortListByNoOfRooms = [];
   sortByValue = [];
   movingHouse: any;
+  missingData = [];
 
   constructor(public taskService: TaskService) {}
 
@@ -58,8 +59,18 @@ export class AppComponent implements OnInit {
       // sort by nearsest ditsance to sisters house
       this.movingHouse = this.sortByValue.sort((a, b) => Number(a.distance) - Number(b.distance));
       this.movingHouse = this.movingHouse.shift();
-      console.log(this.movingHouse);
 
+      // missing data from list of houses based on optional values like params, rooms and value
+      this.houseList.houses.forEach(eachHouse => {
+        if (eachHouse.params) {
+          const keys = Object.keys(eachHouse.params);
+          if (keys.length < 2) {
+            this.missingData.push(eachHouse);
+          }
+        } else {
+          this.missingData.push(eachHouse);
+        }
+      });
 
     });
 
