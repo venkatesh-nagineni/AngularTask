@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {TaskService} from './task.service';
 declare var google;
+import {Houses} from '../assets/data';
+import {HousesProps} from '../assets/data';
 
 @Component({
   selector: 'app-root',
@@ -9,12 +11,12 @@ declare var google;
 })
 export class AppComponent implements OnInit {
 
-  houseList: any;
-  sortListByDistance: any;
-  sortListByNoOfRooms = [];
-  sortByValue = [];
-  movingHouse: any;
-  missingData = [];
+  houseList: Houses;
+  sortListByDistance: HousesProps[];
+  sortListByNoOfRooms: HousesProps[] = [];
+  sortByValue: HousesProps[] = [];
+  movingHouse: HousesProps;
+  missingData: HousesProps[] = [];
 
   constructor(public taskService: TaskService) {}
 
@@ -29,7 +31,7 @@ export class AppComponent implements OnInit {
         this.houseList.houses[index].distance = Number(distance.toFixed(2));
       });
 
-      this.sortListByDistance = this.houseList.houses.sort((a, b) => parseFloat(a.distance) - parseFloat(b.distance));
+      this.sortListByDistance = this.houseList.houses.sort((a, b) => Number(a.distance) - Number(b.distance));
 
       // list all houses with more than 5 rooms
       this.houseList.houses.forEach(eachHouse => {
@@ -45,7 +47,7 @@ export class AppComponent implements OnInit {
       this.sortListByNoOfRooms = this.sortListByNoOfRooms.sort((a, b) => Number(a.params.rooms) - Number(b.params.rooms));
 
       // comparing by more than 10 rooms and value less than or equal to 5000000
-      this.sortListByDistance.forEach(eachHouse => {
+      this.sortListByDistance. forEach(eachHouse => {
         if (eachHouse.params) {
           if (Number(eachHouse.params.rooms) >= 10 && Number(eachHouse.params.value) <= 5000000) {
             this.sortByValue.push(eachHouse);
@@ -57,8 +59,7 @@ export class AppComponent implements OnInit {
       this.sortByValue.shift();
 
       // sort by nearsest ditsance to sisters house
-      this.movingHouse = this.sortByValue.sort((a, b) => Number(a.distance) - Number(b.distance));
-      this.movingHouse = this.movingHouse.shift();
+      this.movingHouse = this.sortByValue.sort((a, b) => Number(a.distance) - Number(b.distance)).shift();
 
       // missing data from list of houses based on optional values like params, rooms and value
       this.houseList.houses.forEach(eachHouse => {
